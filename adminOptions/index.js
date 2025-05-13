@@ -1,15 +1,34 @@
-
-import TravelDestinations from '../models/travelDestinations.js';
-import { TravelDestinationsOptions, TravelDestinationsFeatures } from './travelDestinations.js';
+import { Slider, Category, Subcategory, Product } from '../models/index.js';
+import { productOptions, productFeatures } from './productOption.js'
+import { promoSliderOptions, promoSliderFeatures } from './promoSliderOptions.js'
+import { categoryOptions, categoryFeatures } from './categoryOptions.js'
+import { subcategoryOptions, subcategoryFeatures } from './subcategoryOptions.js'
 import { componentLoader, Components } from './componentLoader.js';
 
+
+// Экспортируем опции AdminJS
 export const AdminJSOptions = {
     componentLoader,
     resources: [
         {
-            resource: TravelDestinations,
-            options: TravelDestinationsOptions,
-            features: TravelDestinationsFeatures(componentLoader),
+            resource: Slider,
+            options: promoSliderOptions,
+            features: promoSliderFeatures(componentLoader),
+        },
+        {
+            resource: Category,
+            options: categoryOptions,
+            features: categoryFeatures(componentLoader),
+        },
+        {
+            resource: Subcategory,
+            options: subcategoryOptions,
+            features: subcategoryFeatures(componentLoader),
+        },
+        {
+            resource: Product,
+            options: productOptions,
+            features: productFeatures(componentLoader),
         }
     ],
     dashboard: {
@@ -17,8 +36,8 @@ export const AdminJSOptions = {
         component: Components.Dashboard,
     },
     branding: {
-        companyName: 'NAT',
+        companyName: 'Flowers',
         withMadeWithLove: false,
-        logo: '/public/logo.png'
+        logo: '/logo.png',
     },
 };

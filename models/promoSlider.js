@@ -8,8 +8,9 @@ const Slider = sequelize.define('Slider', {
         autoIncrement: true,
     },
     slider_img: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         allowNull: true,
+        defaultValue: null
     },
     slider_title: {
         type: DataTypes.STRING,

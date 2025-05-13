@@ -12,12 +12,17 @@ const Subcategory = sequelize.define('Subcategory', {
     seo_description: DataTypes.STRING(61),
     seo_tags: DataTypes.STRING(21),
     slug: DataTypes.STRING(18),
-    image: DataTypes.STRING(35),
-    created_at: DataTypes.STRING(10),
-    category_id: {
-        type: DataTypes.TINYINT,
+    image: {
+        type: DataTypes.JSON,
         allowNull: true,
+        defaultValue: null
     },
+    parent_category: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: [],
+    },
+
 }, {
     tableName: 'backend_subcategory',
     timestamps: false,

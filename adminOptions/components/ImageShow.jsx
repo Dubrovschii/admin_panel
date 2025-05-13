@@ -1,23 +1,16 @@
-// adminOptions/components/ImageShow.jsx
 import React from "react";
 
-const ImageShow = (props) => {
-  const { record, property } = props;
-  const imagePath = record.params[property.name]?.path;
-
-  return (
+const ImageShow = ({ record, property }) => {
+  const imagePath = record.params[property.name];
+  return imagePath ? (
     <div>
-      {imagePath ? (
-        <img
-          src={imagePath}
-          alt="Uploaded content"
-          style={{ width: "50px", height: "auto" }}
-        />
-      ) : (
-        <span>No image123</span>
-      )}
+      <img
+        src={`/uploads/products/${imagePath}`}
+        style={{ maxWidth: 200, maxHeight: 200 }}
+        alt="Product"
+      />
     </div>
-  );
+  ) : null;
 };
 
 export default ImageShow;

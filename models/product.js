@@ -11,13 +11,21 @@ const Product = sequelize.define('Product', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+    // product_category: {
+    //     type: DataTypes.JSON, // будет массив чисел: [1, 2, 3]
+    //     allowNull: false,
+    //     defaultValue: [],
+    // },
     product_category: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    product_subcategory: {
-        type: DataTypes.INTEGER,
         allowNull: true,
+        defaultValue: [],
+    },
+
+    product_subcategory: {
+        type: DataTypes.JSON,
+        allowNull: true,
+        defaultValue: [],
     },
     product_price: {
         type: DataTypes.DECIMAL(10, 2),
@@ -31,24 +39,26 @@ const Product = sequelize.define('Product', {
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    // product_img: {
-    //     type: DataTypes.JSON,  // Массив путей к изображениям
-    //     allowNull: true,
-    //     defaultValue: [],
-    // },
-    product_img: {
-        type: DataTypes.JSONB,
+    is_for_bouquet: {
+        type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: [],
+        defaultValue: true,
     },
-    // get() {
-    //     const rawValue = this.getDataValue('product_img');
-    //     return rawValue ? JSON.parse(rawValue) : [];
-    // },
-    // set(val) {
-    //     this.setDataValue('product_img', JSON.stringify(val));
-    // },
-
+    is_for_sale: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false,
+    },
+    is_for_coupon: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false,
+    },
+    product_img: {
+        type: DataTypes.JSON, // Автоматическая обработка JSON
+        allowNull: true,
+        defaultValue: null
+    },
     product_rating: {
         type: DataTypes.DECIMAL(3, 2),
         defaultValue: 0.0,

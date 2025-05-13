@@ -1,19 +1,21 @@
-import React from "react";
-import { DropZone, Label, Box } from "@adminjs/design-system";
-
+import React, { useEffect } from "react";
+// import { DropZone, Label, Box, fontSizes } from "@adminjs/design-system";
+import { Box } from "@adminjs/design-system";
+import { ApiClient } from "adminjs";
 const UploadPhoto = (props) => {
-  const { property, record, onChange } = props;
-  const srcImg = record.params["picture"];
-  const onUpload = (files) => {
-    onChange(property.name, files[0]);
-  };
+  useEffect(() => {
+    const api = new ApiClient();
+    console.log("useeff is running");
+    api
+      .resourceAction({ resourceId: "Product", actionName: "list" })
+      .then((results) => {
+        console.log(results);
+      }, []);
+  });
 
   return (
     <Box>
-      {srcImg ? (
-        
-        <img style={{ width: "50px" }} src={`/public/uploads/${srcImg}`} />
-      ) : null}
+      <h1 className="admin__title">Welcome to AdminPanel, my dear Admin</h1>
     </Box>
   );
 };

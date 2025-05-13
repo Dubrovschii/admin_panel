@@ -19,6 +19,15 @@ const app = express();
 AdminJS.registerAdapter(AdminJSSequelize);
 
 // Настройка Sequelize
+// const sequelize = new Sequelize({
+//     host: process.env.DB_HOST || 'localhost',
+//     port: process.env.DB_PORT || 3306,
+//     username: process.env.DB_USER || 'root',
+//     password: process.env.DB_PASSWORD || '',
+//     database: process.env.DB_NAME || 'marketpro',
+//     dialect: 'mysql',
+//     logging: false,
+// });
 const sequelize = new Sequelize({
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 3306,
@@ -26,7 +35,20 @@ const sequelize = new Sequelize({
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'marketpro',
     dialect: 'mysql',
-    logging: false,
+    logging: (sql, timing) => {
+        console.log(`[SQL] ${sql}`);
+        if (timing) console.log(`[Execution time: ${timing}ms]`);
+    },
+    benchmark: true,
+    dialectOptions: {
+        connectTimeout: 60000,
+    },
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000,
+    },
 });
 
 // Настройка AdminJS
@@ -80,15 +102,13 @@ const startServer = async () => {
         // 1. Общая статика (включая /custom.css)
         app.use(express.static(path.join(__dirname, 'public')));
 
-        // 2. Статика для загрузок (если используешь)
         app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-        // 3. AdminJS роутер
         app.use(adminJs.options.rootPath, adminRouter);
 
-        // Порт Render.com или локальный
-        const port = process.env.PORT || 3000;
 
+        const port = process.env.PORT || 3000;
+        adminJs.watch();
         // Запуск сервера
         app.listen(port, () => {
             console.log(`🚀 Server running at http://localhost:${port}`);

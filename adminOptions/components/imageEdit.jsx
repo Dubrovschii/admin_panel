@@ -12,7 +12,7 @@ const UploadPhoto = (props) => {
   return (
     <Box>
       {srcImg ? (
-        <img style={{ width: "50px" }} src={`/public/uploads/${srcImg}`} />
+        <img style={{ width: "50px" }} src={`/public/images/${srcImg}`} />
       ) : null}
     </Box>
   );
